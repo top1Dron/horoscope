@@ -25,7 +25,7 @@ def generateBody(header, paragraphs):
 
 
 def savePage(title, header, paragraphs, output="index.html"):
-    file = open(output, 'w')
+    file = open(output, 'w', encoding='utf-8')
     page = generatePage(head=generateHead(title),
                         body=generateBody(header=header, paragraphs=paragraphs))
     print(page, file=file)
