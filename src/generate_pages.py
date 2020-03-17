@@ -21,8 +21,8 @@ def generateBody(header, paragraphs):
     body = f"\t\t<h1>{header}</h1>\n"
     for p in paragraphs:
         body += f"\t\t<p>{p}</p>\n"
-    body += f"<a href='about.html'>О реализации</a>"
-    return f"<body>\n{body}\t</body>"
+    body += f"\t\t<a href='about.html'>О реализации</a>"
+    return f"<body>\n{body}\n\t</body>"
 
 
 def generateAboutBody(header):
@@ -43,7 +43,7 @@ def generateAboutBody(header):
     return f"<body>\n{body}\t</body>"
 
 
-def saveIndexPage(title, header, paragraphs, output="index.html"):
+def saveIndexPage(title, header, paragraphs, output="views/index.html"):
     file = open(output, 'w', encoding='utf-8')
     page = generatePage(head=generateHead(title),
                         body=generateBody(header=header, paragraphs=paragraphs))
@@ -51,7 +51,7 @@ def saveIndexPage(title, header, paragraphs, output="index.html"):
     file.close()
 
 
-def saveAboutPage(title, header, output="about.html"):
+def saveAboutPage(title, header, output="views/about.html"):
     file = open(output, 'w', encoding='utf-8')
     page = generatePage(head=generateHead(title),
                         body=generateAboutBody(header=header))

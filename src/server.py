@@ -1,27 +1,33 @@
-from bottle import route, run, view
+from bottle import route, run, view, static_file, get
 from datetime import datetime as dt
+import sys
+sys.path.insert(0, '../src')
+from horoscope import generateProphecies
 import random
 
+
+
+@get("/static/scripts/<filepath:re:.*\.js>")
+def js(filepath):
+    return static_file(filepath, root="./scripts")
 
 @route("/")
 @view("prophecies")
 def index():
     now = dt.now()
     specialDate = random.random()
-    return {"date": f"{now.year}-{now.month}-{now.day}",
-            "prophecies": [
-                "Перед сном будьте открыты для неожиданного праздника.",
-                "Днём будьте открыты для гостей из забытого прошлого.",
-                "Днём ожидайте приятных перемен.",
-                "Днём ожидайте гостей из забытого прошлого.",
-                "Днём предостерегайтесь гостей из забытого прошлого."
-            ],
-            "specialDate": specialDate}
+    return {
+        "date": f"{now.year}-{now.month}-{now.day}",
+        "prophecies": generateProphecies(),
+        "specialDate": specialDate
+    }
 
 
-@route("/api/test")
-def api_test():
-    return {"test": True}
+@route("/api/forecasts")
+def api_forecasts():
+    return {
+        "prophecies": generateProphecies(total_num=6, num_sentences=2)
+    }
 
 
 run(
