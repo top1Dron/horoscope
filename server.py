@@ -1,15 +1,15 @@
 from bottle import route, run, view, static_file, get
 from datetime import datetime as dt
-import sys
-sys.path.insert(0, '../src')
+import os
+
 from horoscope import generateProphecies
 import random
-
 
 
 @get("/static/scripts/<filepath:re:.*\.js>")
 def js(filepath):
     return static_file(filepath, root="./scripts")
+
 
 @route("/")
 @view("prophecies")
@@ -26,12 +26,15 @@ def index():
 @route("/api/forecasts")
 def api_forecasts():
     return {
-        "prophecies": generateProphecies(total_num=6, num_sentences=2)
+        "prophecies": generateProphecies(total_num=8, num_sentences=2)
     }
 
-
-run(
-    host="localhost",
-    port=8000,
-    debug=True
-)
+if __name__ == "__main__":
+    if os.environ.get('APP_LOCATION') == 'heroku':
+        run(host='0.0.0.0', host = int(os.environ.get("PORT" ,5000)))
+    else:
+        run(
+            host="localhost",
+            port=8000,
+            debug=True
+        )
