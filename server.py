@@ -2,7 +2,7 @@ from bottle import route, run, view, static_file, get
 from datetime import datetime as dt
 import os
 
-from horoscope import generateProphecies
+from src.horoscope import generateProphecies
 import random
 
 
@@ -23,10 +23,16 @@ def index():
     }
 
 
+@route("/about")
+@view("about")
+def about():
+    pass
+
+
 @route("/api/forecasts")
 def api_forecasts():
     return {
-        "prophecies": generateProphecies(total_num=8, num_sentences=2)
+        "prophecies": generateProphecies(total_num=5, num_sentences=2)
     }
 
 if __name__ == "__main__":

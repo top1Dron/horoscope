@@ -29,7 +29,7 @@
 			%end
 			</div>
 			
-			<a href='about.html'>О реализации</a>
+			<a href='/about'>О реализации</a>
 		</div>
 	</body>
 	<script text="javascript">
